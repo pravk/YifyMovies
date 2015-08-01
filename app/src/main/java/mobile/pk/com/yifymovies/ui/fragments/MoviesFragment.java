@@ -106,6 +106,8 @@ public class MoviesFragment extends Fragment {
             @Override
             public void onLoadMore(int current_page) {
                 Map<String,String> options = new HashMap<String, String>();
+                if(getFilters() != null)
+                    options.putAll(getFilters());
                 options.put("page", String.valueOf(current_page));
                 movieListService.getMovieList(options, new Callback<MovieListService.MovieListResponse>() {
                     @Override

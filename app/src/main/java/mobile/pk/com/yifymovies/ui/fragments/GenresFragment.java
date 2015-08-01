@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import mobile.pk.com.yifymovies.Application;
 import mobile.pk.com.yifymovies.R;
 import mobile.pk.com.yifymovies.adapter.MovieListAdapter;
 import mobile.pk.com.yifymovies.adapter.RVItemClickListener;
+import mobile.pk.com.yifymovies.businessobjects.MovieFilter;
 import mobile.pk.com.yifymovies.service.MovieListService;
 import mobile.pk.com.yifymovies.ui.activity.BaseActivity;
 import mobile.pk.com.yifymovies.ui.activity.MovieDetailActivity;
@@ -74,8 +76,8 @@ public class GenresFragment extends Fragment {
                 String genre = arrayAdapter.getItem(position);
 
                 Intent intent = new Intent(getActivity(), MovieSearchActivity.class);
-                HashMap<String,String> options = new HashMap<String, String>();
-                options.put("genre", genre);
+                ArrayList<MovieFilter> options = new ArrayList<MovieFilter>();
+                options.add(new MovieFilter("genre", genre, genre));
                 intent.putExtra(MovieSearchActivity.OPTIONS, options);
                 startActivityForResult(intent, BaseActivity.MOVIE_SEARCH_REQUEST);
 

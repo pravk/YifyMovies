@@ -1,6 +1,8 @@
 package mobile.pk.com.yifymovies.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,10 +15,14 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import mobile.pk.com.yifymovies.R;
+import mobile.pk.com.yifymovies.businessobjects.MovieFilter;
 import mobile.pk.com.yifymovies.service.MovieDetailService;
+import mobile.pk.com.yifymovies.ui.activity.BaseActivity;
+import mobile.pk.com.yifymovies.ui.activity.MovieSearchActivity;
 
 /**
  * Created by hello on 8/1/2015.
@@ -138,10 +144,23 @@ public class MovieDetailAdapter extends RecyclerView.Adapter<MovieDetailViewHold
                 TextView tv = (TextView) personView.findViewById(R.id.text);
                 ImageView iv = (ImageView) personView.findViewById(R.id.image);
                 tv.setText(director.getName());
-
+                iv.setTag(director);
                 Picasso.with(mContext).load(director.getMediumImage())
                         .into(iv);
-
+                iv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        MovieDetailService.Director director1 = (MovieDetailService.Director) v.getTag();
+                        if(director1!=null)
+                        {
+                            Intent intent = new Intent(mContext, MovieSearchActivity.class);
+                            ArrayList<MovieFilter> options = new ArrayList<MovieFilter>();
+                            options.add(new MovieFilter("query_term", director1.getImdbCode(), director1.getName()));
+                            intent.putExtra(MovieSearchActivity.OPTIONS, options);
+                            ((Activity)mContext).startActivityForResult(intent, BaseActivity.MOVIE_SEARCH_REQUEST);
+                        }
+                    }
+                });
                 viewHolder.directors.addView(personView);
             }
             List<MovieDetailService.Actor> actorList= getMovieDetailResponse().getData().getActors();
@@ -156,6 +175,20 @@ public class MovieDetailAdapter extends RecyclerView.Adapter<MovieDetailViewHold
                 Picasso.with(mContext).load(actor.getMediumImage())
                         .into(iv);
 
+                iv.setTag(actor);
+                iv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        MovieDetailService.Actor actor1 = (MovieDetailService.Actor) v.getTag();
+                        if (actor1 != null) {
+                            Intent intent = new Intent(mContext, MovieSearchActivity.class);
+                            ArrayList<MovieFilter> options = new ArrayList<MovieFilter>();
+                            options.add(new MovieFilter("query_term", actor1.getImdbCode(), actor1.getName()));
+                            intent.putExtra(MovieSearchActivity.OPTIONS, options);
+                            ((Activity) mContext).startActivityForResult(intent, BaseActivity.MOVIE_SEARCH_REQUEST);
+                        }
+                    }
+                });
                 viewHolder.actors.addView(personView);
             }
         }

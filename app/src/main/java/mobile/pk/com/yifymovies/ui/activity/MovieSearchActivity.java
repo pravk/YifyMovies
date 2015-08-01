@@ -10,10 +10,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import mobile.pk.com.yifymovies.R;
 import mobile.pk.com.yifymovies.adapter.MainFragmentAdapter;
+import mobile.pk.com.yifymovies.businessobjects.MovieFilter;
 import mobile.pk.com.yifymovies.ui.fragments.MoviesFragment;
 
 
@@ -21,7 +23,7 @@ public class MovieSearchActivity extends BaseActivity {
 
     private static final String TAG = MovieSearchActivity.class.getSimpleName();
     public static final String OPTIONS = "Options";
-    HashMap<String,String> options;
+    ArrayList<MovieFilter> options;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,25 +34,28 @@ public class MovieSearchActivity extends BaseActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        options = (HashMap<String, String>) getIntent().getSerializableExtra(OPTIONS);
+        options = (ArrayList<MovieFilter>) getIntent().getSerializableExtra(OPTIONS);
         if(options== null || options.size()==0)
             finish();
         else
         {
             MoviesFragment movieListFragment = new MoviesFragment();
-            movieListFragment.setFilters(options);
+            HashMap<String,String> filters = new HashMap<>();
+            for(MovieFilter movieFilter: options)
+            {
+                filters.put(movieFilter.getName(), movieFilter.getValue());
+            }
+            movieListFragment.setFilters(filters);
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(R.id.container, movieListFragment, "movieListFragment").commit();
             if(options.size()==1)
             {
-                String key = (String) options.keySet().toArray()[0];
-                setTitle(key + ":" + options.get(key));
+                setTitle(options.get(0).getDisplay());
             }
             else {
                 setTitle("Search Results");
             }
-
         }
 
     }
