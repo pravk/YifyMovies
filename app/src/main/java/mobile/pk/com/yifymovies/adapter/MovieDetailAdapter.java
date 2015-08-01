@@ -6,10 +6,14 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import mobile.pk.com.yifymovies.R;
 import mobile.pk.com.yifymovies.service.MovieDetailService;
@@ -40,9 +44,17 @@ public class MovieDetailAdapter extends RecyclerView.Adapter<MovieDetailViewHold
             return getScreenshotViewHolder(viewGroup);
         if(type==1)
             return getMovieInfoViewHolder(viewGroup);
-        if(type>1 && type<getMovieDetailResponse().getData().getTorrents().size()+2)
+        if(type==2)
+            return getMovieDirectorViewHolder(viewGroup);
+        if(type>2 && type<getMovieDetailResponse().getData().getTorrents().size()+3)
             return getTorrentViewHolder(viewGroup);
         return null;
+    }
+
+    private MovieDetailViewHolder getMovieDirectorViewHolder(ViewGroup viewGroup) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_movie_cast,  viewGroup, false);
+
+        return new MovieDirectorViewHolder(view);
     }
 
     protected MovieDetailViewHolder getScreenshotViewHolder(ViewGroup viewGroup)
@@ -109,12 +121,43 @@ public class MovieDetailAdapter extends RecyclerView.Adapter<MovieDetailViewHold
         else if(movieDetailViewHolder instanceof  MovieTorrentInfoViewHolder)
         {
             MovieTorrentInfoViewHolder viewHolder = (MovieTorrentInfoViewHolder) movieDetailViewHolder;
-            MovieDetailService.Torrent torrent = getMovieDetailResponse().getData().getTorrents().get(i-2);
+            MovieDetailService.Torrent torrent = getMovieDetailResponse().getData().getTorrents().get(i-3);
             viewHolder.peers.setText("Peers: " + torrent.getPeers().toString());
             viewHolder.quality.setText("Quality: " +torrent.getQuality());
             viewHolder.resolution.setText("Resolution: " +torrent.getResolution());
             viewHolder.seeds.setText("Seeds: " +torrent.getSeeds().toString());
             viewHolder.size.setText("Size: " +torrent.getSize());
+        }
+        else if(movieDetailViewHolder instanceof  MovieDirectorViewHolder)
+        {
+            MovieDirectorViewHolder viewHolder = (MovieDirectorViewHolder) movieDetailViewHolder;
+            List<MovieDetailService.Director> directorList= getMovieDetailResponse().getData().getDirectors();
+            for(MovieDetailService.Director director : directorList)
+            {
+                View personView = LayoutInflater.from(mContext).inflate(R.layout.view_person, null);
+                TextView tv = (TextView) personView.findViewById(R.id.text);
+                ImageView iv = (ImageView) personView.findViewById(R.id.image);
+                tv.setText(director.getName());
+
+                Picasso.with(mContext).load(director.getMediumImage())
+                        .into(iv);
+
+                viewHolder.directors.addView(personView);
+            }
+            List<MovieDetailService.Actor> actorList= getMovieDetailResponse().getData().getActors();
+            for(MovieDetailService.Actor actor : actorList)
+            {
+                View personView = LayoutInflater.from(mContext).inflate(R.layout.view_person, null);
+                TextView tv = (TextView) personView.findViewById(R.id.text);
+                ImageView iv = (ImageView) personView.findViewById(R.id.image);
+                //tv.setText(actor.getName());
+                tv.setText("");
+                iv.setContentDescription(actor.getName());
+                Picasso.with(mContext).load(actor.getMediumImage())
+                        .into(iv);
+
+                viewHolder.actors.addView(personView);
+            }
         }
 
     }
@@ -123,7 +166,7 @@ public class MovieDetailAdapter extends RecyclerView.Adapter<MovieDetailViewHold
     public int getItemCount() {
         if(movieDetailResponse== null)
             return 0;
-        return 2 + movieDetailResponse.getData().getTorrents().size();
+        return 3 + movieDetailResponse.getData().getTorrents().size();
     }
 
     public MovieDetailService.MovieDetailResponse getMovieDetailResponse() {

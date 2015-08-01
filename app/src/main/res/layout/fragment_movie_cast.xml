@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
+    android:id="@+id/card_view_screenshots"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="150dp"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="5dp"
+    android:layout_margin="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent" android:padding="16dp"
+        android:layout_height="wrap_content" android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp" android:layout_weight="1"
+            android:layout_height="match_parent" android:orientation="vertical">
+            <TextView style="@style/TextAppearance.AppCompat.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="@string/directors" />
+            <org.apmem.tools.layouts.FlowLayout
+                xmlns:android="http://schemas.android.com/apk/res/android" android:layout_marginRight="16dp"
+                android:id="@+id/directors"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </org.apmem.tools.layouts.FlowLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp" android:layout_weight="2"
+            android:layout_height="match_parent" android:orientation="vertical">
+            <TextView style="@style/TextAppearance.AppCompat.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="@string/actors" />
+            <org.apmem.tools.layouts.FlowLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/actors" android:layout_marginRight="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </org.apmem.tools.layouts.FlowLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
