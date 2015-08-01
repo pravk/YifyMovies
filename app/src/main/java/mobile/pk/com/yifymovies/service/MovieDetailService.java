@@ -188,7 +188,7 @@ public interface MovieDetailService {
         private String dateUploaded;
         @SerializedName("date_uploaded_unix")
         @Expose
-        private Integer dateUploadedUnix;
+        private Long dateUploadedUnix;
         @Expose
         private Images images;
         @Expose
@@ -599,7 +599,7 @@ public interface MovieDetailService {
          * @return
          * The dateUploadedUnix
          */
-        public Integer getDateUploadedUnix() {
+        public Long getDateUploadedUnix() {
             return dateUploadedUnix;
         }
 
@@ -608,7 +608,7 @@ public interface MovieDetailService {
          * @param dateUploadedUnix
          * The date_uploaded_unix
          */
-        public void setDateUploadedUnix(Integer dateUploadedUnix) {
+        public void setDateUploadedUnix(Long dateUploadedUnix) {
             this.dateUploadedUnix = dateUploadedUnix;
         }
 
@@ -1185,7 +1185,7 @@ public interface MovieDetailService {
         private String size;
         @SerializedName("size_bytes")
         @Expose
-        private Integer sizeBytes;
+        private Long sizeBytes;
         @SerializedName("download_count")
         @Expose
         private Integer downloadCount;
@@ -1194,7 +1194,7 @@ public interface MovieDetailService {
         private String dateUploaded;
         @SerializedName("date_uploaded_unix")
         @Expose
-        private Integer dateUploadedUnix;
+        private Long dateUploadedUnix;
 
         /**
          *
@@ -1345,7 +1345,7 @@ public interface MovieDetailService {
          * @return
          * The sizeBytes
          */
-        public Integer getSizeBytes() {
+        public Long getSizeBytes() {
             return sizeBytes;
         }
 
@@ -1354,7 +1354,7 @@ public interface MovieDetailService {
          * @param sizeBytes
          * The size_bytes
          */
-        public void setSizeBytes(Integer sizeBytes) {
+        public void setSizeBytes(Long sizeBytes) {
             this.sizeBytes = sizeBytes;
         }
 
@@ -1399,7 +1399,7 @@ public interface MovieDetailService {
          * @return
          * The dateUploadedUnix
          */
-        public Integer getDateUploadedUnix() {
+        public Long getDateUploadedUnix() {
             return dateUploadedUnix;
         }
 
@@ -1408,7 +1408,7 @@ public interface MovieDetailService {
          * @param dateUploadedUnix
          * The date_uploaded_unix
          */
-        public void setDateUploadedUnix(Integer dateUploadedUnix) {
+        public void setDateUploadedUnix(Long dateUploadedUnix) {
             this.dateUploadedUnix = dateUploadedUnix;
         }
 

@@ -242,7 +242,7 @@ public interface MovieListService {
         private String dateUploaded;
         @SerializedName("date_uploaded_unix")
         @Expose
-        private Integer dateUploadedUnix;
+        private Long dateUploadedUnix;
 
         /**
          *
@@ -573,7 +573,7 @@ public interface MovieListService {
          * @return
          * The dateUploadedUnix
          */
-        public Integer getDateUploadedUnix() {
+        public Long getDateUploadedUnix() {
             return dateUploadedUnix;
         }
 
@@ -582,7 +582,7 @@ public interface MovieListService {
          * @param dateUploadedUnix
          * The date_uploaded_unix
          */
-        public void setDateUploadedUnix(Integer dateUploadedUnix) {
+        public void setDateUploadedUnix(Long dateUploadedUnix) {
             this.dateUploadedUnix = dateUploadedUnix;
         }
 
@@ -698,7 +698,7 @@ public interface MovieListService {
         private String dateUploaded;
         @SerializedName("date_uploaded_unix")
         @Expose
-        private Integer dateUploadedUnix;
+        private Long dateUploadedUnix;
 
         /**
          *
@@ -849,7 +849,7 @@ public interface MovieListService {
          * @return
          * The dateUploadedUnix
          */
-        public Integer getDateUploadedUnix() {
+        public Long getDateUploadedUnix() {
             return dateUploadedUnix;
         }
 
@@ -858,7 +858,7 @@ public interface MovieListService {
          * @param dateUploadedUnix
          * The date_uploaded_unix
          */
-        public void setDateUploadedUnix(Integer dateUploadedUnix) {
+        public void setDateUploadedUnix(Long dateUploadedUnix) {
             this.dateUploadedUnix = dateUploadedUnix;
         }
 
