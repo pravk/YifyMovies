@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="5dp" android:layout_margin="5dp">
+
+       <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:padding="16dp">
+
+            <ImageView android:id="@+id/cover_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_marginRight="16dp" android:src="@drawable/abc_btn_check_material"  />
+
+            <TextView android:layout_toRightOf="@+id/cover_image"
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" style="@style/TextAppearance.AppCompat.Large" android:text="Title" />
+
+           <TextView android:layout_toRightOf="@+id/cover_image" android:layout_below="@+id/title"
+               android:id="@+id/year"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" style="@style/TextAppearance.AppCompat.Small" android:text="Title" />
+
+           <TextView android:layout_toRightOf="@+id/year" android:layout_below="@+id/title"
+               android:id="@+id/rating"
+               android:layout_marginLeft="10dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" style="@style/TextAppearance.AppCompat.Small" android:text="Rating" />
+
+           <TextView android:layout_toRightOf="@+id/rating" android:layout_below="@+id/title"
+               android:id="@+id/language"
+               android:layout_marginLeft="10dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" style="@style/TextAppearance.AppCompat.Small" android:text="Language" />
+
+           <TextView android:layout_toRightOf="@id/cover_image" android:layout_below="@+id/year"
+               android:id="@+id/mpa_rating"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" style="@style/TextAppearance.AppCompat.Small" android:text="@string/mpa_rating" />
+
+           <TextView android:layout_toRightOf="@id/mpa_rating" android:layout_below="@+id/year"
+               android:id="@+id/runtime"
+               android:layout_marginLeft="10dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" style="@style/TextAppearance.AppCompat.Small" android:text="@string/runtime" />
+
+
+           <TextView android:layout_toRightOf="@id/cover_image" android:layout_below="@+id/mpa_rating"
+               android:id="@+id/genres"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" style="@style/TextAppearance.AppCompat.Small" android:text="@string/generes" />
+
+           <TextView android:layout_toRightOf="@id/cover_image" android:layout_below="@+id/genres"
+               android:id="@+id/quality"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" style="@style/TextAppearance.AppCompat.Small" android:text="@string/quality" />
+        </RelativeLayout>
+
+</android.support.v7.widget.CardView>
