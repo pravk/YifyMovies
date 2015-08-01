@@ -1,4 +1,4 @@
-package android.pk.com.yifymovies;
+package mobile.pk.com.yifymovies;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

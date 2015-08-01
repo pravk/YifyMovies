@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="android.pk.com.yifymovies.ui.activity.MainActivity">
+    tools:context="mobile.pk.com.yifymovies.ui.activity.MainActivity">
     <item android:id="@+id/list_movies" android:title="@string/search"
         app:showAsAction="withText|ifRoom" />
     <item android:id="@+id/action_settings" android:title="@string/action_settings"

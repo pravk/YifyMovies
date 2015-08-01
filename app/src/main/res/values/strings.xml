@@ -21,4 +21,10 @@
     <string name="mpa_rating">MPA Rating</string>
     <string name="runtime">Runtime</string>
     <string name="quality">Quality</string>
+    <string name="title">Title</string>
+    <string name="seeds">Seeds</string>
+    <string name="leechers">Leechers</string>
+    <string name="peers">Peers</string>
+    <string name="resolution">Resolution</string>
+    <string name="size">Size</string>
 </resources>

@@ -1,7 +1,7 @@
-package android.pk.com.yifymovies.service;
+package mobile.pk.com.yifymovies.service;
 
 import android.content.Context;
-import android.pk.com.yifymovies.R;
+import mobile.pk.com.yifymovies.R;
 
 import retrofit.RestAdapter;
 
@@ -11,6 +11,7 @@ import retrofit.RestAdapter;
 public class RestClient {
 
     private MovieListService movieListService;
+    private MovieDetailService movieDetailService;
 
     public RestClient(Context context)
     {
@@ -20,9 +21,14 @@ public class RestClient {
                 .build();
 
         movieListService = restAdapter.create(MovieListService.class);
+        movieDetailService = restAdapter.create(MovieDetailService.class);
     }
 
     public MovieListService getMovieListService() {
         return movieListService;
+    }
+
+    public MovieDetailService getMovieDetailService() {
+        return movieDetailService;
     }
 }

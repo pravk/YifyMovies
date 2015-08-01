@@ -1,4 +1,4 @@
- package android.pk.com.yifymovies.ui.utils;
+ package mobile.pk.com.yifymovies.ui.utils;
 
  import android.support.v7.widget.LinearLayoutManager;
  import android.support.v7.widget.RecyclerView;

@@ -1,10 +1,8 @@
-package android.pk.com.yifymovies.ui.activity;
+package mobile.pk.com.yifymovies.ui.activity;
 
-import android.pk.com.yifymovies.R;
-import android.pk.com.yifymovies.ui.fragments.MoviesFragment;
+import mobile.pk.com.yifymovies.ui.fragments.MoviesFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,9 +15,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(mobile.pk.com.yifymovies.R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar); // Attaching the layout to the toolbar object
+        Toolbar toolbar = (Toolbar) findViewById(mobile.pk.com.yifymovies.R.id.toolbar); // Attaching the layout to the toolbar object
         setSupportActionBar(toolbar);
 
     }
@@ -27,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(mobile.pk.com.yifymovies.R.menu.menu_main, menu);
         return true;
     }
 
@@ -39,15 +37,15 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == mobile.pk.com.yifymovies.R.id.action_settings) {
             return true;
         }
-        if(id==R.id.list_movies)
+        if(id== mobile.pk.com.yifymovies.R.id.list_movies)
         {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             MoviesFragment moviesFragment = MoviesFragment.newInstance();
-            fragmentTransaction.add(R.id.fragment_container, moviesFragment, "movieList");
+            fragmentTransaction.add(mobile.pk.com.yifymovies.R.id.fragment_container, moviesFragment, "movieList");
             fragmentTransaction.commit();
         }
 

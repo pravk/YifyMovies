@@ -1,6 +1,6 @@
-package android.pk.com.yifymovies;
+package mobile.pk.com.yifymovies;
 
-import android.pk.com.yifymovies.service.RestClient;
+import mobile.pk.com.yifymovies.service.RestClient;
 
 /**
  * Created by hello on 8/1/2015.

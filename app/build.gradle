@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.0 rc3"
 
     defaultConfig {
-        applicationId "android.pk.com.yifymovies"
+        applicationId "mobile.pk.com.yifymovies"
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
@@ -27,4 +27,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:21.0.+'
     compile 'com.android.support:recyclerview-v7:21.0.+'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.daimajia.slider:library:1.1.5@aar'
+    compile 'com.jakewharton:butterknife:6.1.0'
 }

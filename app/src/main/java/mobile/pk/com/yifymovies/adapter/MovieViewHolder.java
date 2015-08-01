@@ -1,6 +1,6 @@
-package android.pk.com.yifymovies.adapter;
+package mobile.pk.com.yifymovies.adapter;
 
-import android.pk.com.yifymovies.R;
+import mobile.pk.com.yifymovies.R;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 /**
  * Created by hello on 8/1/2015.
  */
-public class MovieViewHolder extends RecyclerView.ViewHolder{
+public class MovieViewHolder extends MovieDetailViewHolder implements View.OnClickListener{
 
     ImageView coverImage;
     TextView title;
@@ -34,4 +34,8 @@ public class MovieViewHolder extends RecyclerView.ViewHolder{
         quality = (TextView) itemView.findViewById(R.id.quality);
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }

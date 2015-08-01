@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
+    android:id="@+id/card_view_screenshots"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="5dp"
+    android:layout_margin="5dp">
+
+        <com.daimajia.slider.library.SliderLayout
+            android:id="@+id/slider"
+            android:layout_width="match_parent"
+            app:pager_animation="Accordion"
+            app:auto_cycle="true"
+            app:indicator_visibility="visible"
+            app:pager_animation_span="1100"
+            android:layout_height="match_parent"/>
+
+        <com.daimajia.slider.library.Indicators.PagerIndicator
+            android:id="@+id/custom_indicator"
+            style="@style/AndroidImageSlider_Corner_Oval_Orange"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            />
+
+    </android.support.v7.widget.CardView>

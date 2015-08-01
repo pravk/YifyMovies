@@ -1,4 +1,4 @@
-package android.pk.com.yifymovies.service;
+package mobile.pk.com.yifymovies.service;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -198,7 +198,7 @@ public interface MovieListService {
     public class Movie {
 
         @Expose
-        private Integer id;
+        private String id;
         @Expose
         private String url;
         @SerializedName("imdb_code")
@@ -249,7 +249,7 @@ public interface MovieListService {
          * @return
          * The id
          */
-        public Integer getId() {
+        public String getId() {
             return id;
         }
 
@@ -258,7 +258,7 @@ public interface MovieListService {
          * @param id
          * The id
          */
-        public void setId(Integer id) {
+        public void setId(String id) {
             this.id = id;
         }
 

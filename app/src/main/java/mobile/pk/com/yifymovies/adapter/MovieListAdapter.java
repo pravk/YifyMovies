@@ -1,8 +1,8 @@
-package android.pk.com.yifymovies.adapter;
+package mobile.pk.com.yifymovies.adapter;
 
 import android.content.Context;
-import android.pk.com.yifymovies.R;
-import android.pk.com.yifymovies.service.MovieListService;
+import mobile.pk.com.yifymovies.R;
+import mobile.pk.com.yifymovies.service.MovieListService;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -22,15 +22,24 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     private final Context mContext;
     List<MovieListService.Movie> movieList;
 
-    public MovieListAdapter(Context context) {
+    RVItemClickListener rvItemClickListener;
+
+    public MovieListAdapter(Context context, RVItemClickListener rvItemClickListener) {
         this.mContext = context;
+        this.rvItemClickListener = rvItemClickListener;
     }
 
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_movie_item,  viewGroup, false);
 
-        MovieViewHolder viewHolder = new MovieViewHolder(view);
+        final MovieViewHolder viewHolder = new MovieViewHolder(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rvItemClickListener.onItemClick(v,viewHolder.getPosition());
+            }
+        });
         return viewHolder;
     }
 
@@ -70,5 +79,10 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
             movieList = new ArrayList<>();
         movieList.addAll(movies);
         notifyDataSetChanged();
+    }
+
+    public String getMovieId(int index)
+    {
+        return movieList.get(index).getId();
     }
 }

@@ -1,20 +1,20 @@
-package android.pk.com.yifymovies.ui.fragments;
+package mobile.pk.com.yifymovies.ui.fragments;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.pk.com.yifymovies.Application;
-import android.pk.com.yifymovies.R;
-import android.pk.com.yifymovies.adapter.MovieListAdapter;
-import android.pk.com.yifymovies.service.MovieListService;
-import android.pk.com.yifymovies.ui.utils.EndlessRecyclerOnScrollListener;
+import mobile.pk.com.yifymovies.Application;
+import mobile.pk.com.yifymovies.adapter.MovieListAdapter;
+import mobile.pk.com.yifymovies.adapter.RVItemClickListener;
+import mobile.pk.com.yifymovies.service.MovieListService;
+import mobile.pk.com.yifymovies.ui.activity.BaseActivity;
+import mobile.pk.com.yifymovies.ui.activity.MovieDetailActivity;
+import mobile.pk.com.yifymovies.ui.utils.EndlessRecyclerOnScrollListener;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -38,18 +38,8 @@ public class MoviesFragment extends Fragment {
 
 
     MovieListService movieListService;
-    /**
-     * The fragment's ListView/GridView.
-     */
-    private AbsListView mListView;
+    MovieListAdapter movieListAdapter;
 
-    /**
-     * The Adapter which will be used to populate the ListView/GridView with
-     * Views.
-     */
-    private RecyclerView.Adapter mAdapter;
-
-    // TODO: Rename and change types of parameters
     public static MoviesFragment newInstance() {
         MoviesFragment fragment = new MoviesFragment();
         Bundle args = new Bundle();
@@ -73,13 +63,21 @@ public class MoviesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_movie_list, container, false);
+        View view = inflater.inflate(mobile.pk.com.yifymovies.R.layout.fragment_movie_list, container, false);
 
-        final RecyclerView recyclerView =   (RecyclerView) view.findViewById(R.id.movie_list);
+        final RecyclerView recyclerView =   (RecyclerView) view.findViewById(mobile.pk.com.yifymovies.R.id.movie_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        final MovieListAdapter movieListAdapter = new MovieListAdapter(getActivity());
+        movieListAdapter = new MovieListAdapter(getActivity(), new RVItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                String movieId = movieListAdapter.getMovieId(position);
+                Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+                intent.putExtra(MovieDetailActivity.MOVIE_ID, movieId);
+                getActivity().startActivityForResult(intent, BaseActivity.MOVIE_DETAIL_REQUEST);
+            }
+        });
 
         movieListService.getMovieList(null, new Callback<MovieListService.MovieListResponse>() {
             @Override
@@ -90,7 +88,7 @@ public class MoviesFragment extends Fragment {
 
             @Override
             public void failure(RetrofitError error) {
-                Toast.makeText(getActivity(), R.string.failed_to_load_movies, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), mobile.pk.com.yifymovies.R.string.failed_to_load_movies, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -107,7 +105,7 @@ public class MoviesFragment extends Fragment {
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Toast.makeText(getActivity(), R.string.failed_to_load_movies, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), mobile.pk.com.yifymovies.R.string.failed_to_load_movies, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -115,19 +113,6 @@ public class MoviesFragment extends Fragment {
         return view;
     }
 
-
-    /**
-     * The default content for this Fragment has a TextView that is shown when
-     * the list is empty. If you would like to change the text, call this method
-     * to supply the text it should use.
-     */
-    public void setEmptyText(CharSequence emptyText) {
-        View emptyView = mListView.getEmptyView();
-
-        if (emptyView instanceof TextView) {
-            ((TextView) emptyView).setText(emptyText);
-        }
-    }
 
     /**
      * This interface must be implemented by activities that contain this

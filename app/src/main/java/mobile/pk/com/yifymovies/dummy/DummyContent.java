@@ -1,4 +1,4 @@
-package android.pk.com.yifymovies.dummy;
+package mobile.pk.com.yifymovies.dummy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
