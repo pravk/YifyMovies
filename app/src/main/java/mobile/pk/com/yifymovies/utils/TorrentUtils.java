@@ -1,7 +1,15 @@
 package mobile.pk.com.yifymovies.utils;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.List;
 
 /**
  * Created by hello on 8/1/2015.
@@ -14,5 +22,18 @@ public class TorrentUtils {
 
     public static String getTorrentLink(String torrentHash, String movieName) throws UnsupportedEncodingException {
         return String.format(format, torrentHash, URLEncoder.encode(movieName,"utf-8"), trackers);
+    }
+
+    public static boolean canHandleIntent(Context context, Intent intent)
+    {
+        PackageManager manager = context.getPackageManager();
+        List<ResolveInfo> list = manager.queryIntentActivities(intent, 0);
+        return list != null && list.size() > 0;
+    }
+
+    public static void addMagnetToClipboard(Context context, String magnetLink) {
+        ClipboardManager clipboard = (ClipboardManager)  context.getSystemService(context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("label", "Text to copy");
+        clipboard.setPrimaryClip(clip);
     }
 }

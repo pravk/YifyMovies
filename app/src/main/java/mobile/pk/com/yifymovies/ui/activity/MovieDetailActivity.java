@@ -1,21 +1,16 @@
 package mobile.pk.com.yifymovies.ui.activity;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import mobile.pk.com.yifymovies.R;
-import mobile.pk.com.yifymovies.adapter.MovieDetailAdapter;
-import mobile.pk.com.yifymovies.service.MovieDetailService;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import mobile.pk.com.yifymovies.adapter.MovieDetailFragmentAdapter;
 
 /**
  * Created by hello on 8/1/2015.
@@ -23,8 +18,9 @@ import retrofit.client.Response;
 public class MovieDetailActivity extends BaseActivity {
 
     public static final String MOVIE_ID = "MOVIE_ID";
+    public static final String MOVIE_TITLE = "MOVIE_TITLE";
     private static final String TAG = MovieDetailActivity.class.getSimpleName();
-    MovieDetailAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,41 +32,26 @@ public class MovieDetailActivity extends BaseActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        String movieTitle = getIntent().getStringExtra(MOVIE_TITLE);
+        setTitle(movieTitle);
+
         ButterKnife.inject(this);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
 
         String movieId = getIntent().getStringExtra(MOVIE_ID);
         if(TextUtils.isEmpty(movieId))
             finish();
         else {
-            RecyclerView recyclerView =   (RecyclerView) findViewById(R.id.movie_detail);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-            recyclerView.setLayoutManager(layoutManager);
-
-            adapter = new MovieDetailAdapter(this, null);
-
-            recyclerView.setAdapter(adapter);
-            loadMovie(movieId);
+            viewPager.setAdapter(new MovieDetailFragmentAdapter(getSupportFragmentManager(), movieId));
+            tabLayout.setupWithViewPager(viewPager);
         }
     }
 
-    protected void loadMovie(String movieId) {
-        getRestClient().getMovieDetailService().getMovieDetails(movieId, new Callback<MovieDetailService.MovieDetailResponse>() {
-            @Override
-            public void success(MovieDetailService.MovieDetailResponse movieDetailResponse, Response response) {
-                bindData(movieDetailResponse);
-            }
 
-            @Override
-            public void failure(RetrofitError error) {
-                Toast.makeText(MovieDetailActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
-    protected void bindData(MovieDetailService.MovieDetailResponse movieDetailResponse) {
-        setTitle(movieDetailResponse.getData().getTitle());
-        adapter.setMovieDetailResponse(movieDetailResponse);
-    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

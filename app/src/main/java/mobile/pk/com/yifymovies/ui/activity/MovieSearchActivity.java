@@ -39,13 +39,12 @@ public class MovieSearchActivity extends BaseActivity {
             finish();
         else
         {
-            MoviesFragment movieListFragment = new MoviesFragment();
             HashMap<String,String> filters = new HashMap<>();
             for(MovieFilter movieFilter: options)
             {
                 filters.put(movieFilter.getName(), movieFilter.getValue());
             }
-            movieListFragment.setFilters(filters);
+            MoviesFragment movieListFragment = MoviesFragment.newInstance(filters);
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(R.id.container, movieListFragment, "movieListFragment").commit();

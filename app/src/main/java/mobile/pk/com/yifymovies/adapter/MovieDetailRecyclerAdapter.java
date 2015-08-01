@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
@@ -30,14 +31,14 @@ import mobile.pk.com.yifymovies.utils.TorrentUtils;
 /**
  * Created by hello on 8/1/2015.
  */
-public class MovieDetailAdapter extends RecyclerView.Adapter<MovieDetailViewHolder> {
+public class MovieDetailRecyclerAdapter extends RecyclerView.Adapter<MovieDetailViewHolder> {
 
     private final Context mContext;
     private MovieDetailService.MovieDetailResponse movieDetailResponse;
 
     RVItemClickListener rvItemClickListener;
 
-    public MovieDetailAdapter(Context context, MovieDetailService.MovieDetailResponse movieDetailResponse) {
+    public MovieDetailRecyclerAdapter(Context context, MovieDetailService.MovieDetailResponse movieDetailResponse) {
         this.mContext = context;
         this.setMovieDetailResponse(movieDetailResponse);
     }
@@ -152,7 +153,14 @@ public class MovieDetailAdapter extends RecyclerView.Adapter<MovieDetailViewHold
                             String magnetLink = TorrentUtils.getTorrentLink(strings[0], strings[1]);
                             Intent i = new Intent(Intent.ACTION_VIEW);
                             i.setData(Uri.parse(magnetLink));
-                            ((Activity) mContext).startActivity(i);
+                            if(TorrentUtils.canHandleIntent(mContext, i)) {
+                                ((Activity) mContext).startActivity(i);
+                            }
+                            else
+                            {
+                                TorrentUtils.addMagnetToClipboard(mContext,magnetLink);
+                                Toast.makeText(mContext,"Magnet link added to clipboard", Toast.LENGTH_SHORT).show();
+                            }
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
                         }

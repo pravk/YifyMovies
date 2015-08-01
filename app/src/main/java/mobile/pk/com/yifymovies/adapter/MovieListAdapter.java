@@ -71,6 +71,8 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
     @Override
     public int getItemCount() {
+        if(movieList== null)
+            return 0;
         return movieList.size();
     }
 
@@ -84,5 +86,9 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     public String getMovieId(int index)
     {
         return movieList.get(index).getId();
+    }
+
+    public String getMovieTitle(int index   ) {
+        return movieList.get(index).getTitle();
     }
 }

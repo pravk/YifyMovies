@@ -50,9 +50,10 @@ public class MoviesFragment extends Fragment {
 
     Map<String,String> filters;
 
-    public static MoviesFragment newInstance() {
+    public static MoviesFragment newInstance(HashMap<String,String> filters) {
         MoviesFragment fragment = new MoviesFragment();
         Bundle args = new Bundle();
+        args.putSerializable("filters", filters);
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,6 +69,11 @@ public class MoviesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         movieListService = ((Application) getActivity().getApplication()).getRestClient().getMovieListService();
+        Bundle args = getArguments();
+        if(args!= null && args.getSerializable("filters") != null)
+        {
+            filters = (Map<String, String>) args.getSerializable("filters");
+        }
     }
 
     @Override
@@ -83,17 +89,20 @@ public class MoviesFragment extends Fragment {
             @Override
             public void onItemClick(View v, int position) {
                 String movieId = movieListAdapter.getMovieId(position);
+                String movieTitle = movieListAdapter.getMovieTitle(position);
                 Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
                 intent.putExtra(MovieDetailActivity.MOVIE_ID, movieId);
+                intent.putExtra(MovieDetailActivity.MOVIE_TITLE, movieTitle);
                 getActivity().startActivityForResult(intent, BaseActivity.MOVIE_DETAIL_REQUEST);
             }
         });
 
-        movieListService.getMovieList(getFilters(), new Callback<MovieListService.MovieListResponse>() {
+        recyclerView.setAdapter(movieListAdapter);
+
+        getMovieList(getFilters(), new Callback<MovieListService.MovieListResponse>() {
             @Override
             public void success(MovieListService.MovieListResponse movieListResponse, Response response) {
                 movieListAdapter.addMovies(movieListResponse.getData().getMovies());
-                recyclerView.setAdapter(movieListAdapter);
             }
 
             @Override
@@ -105,14 +114,11 @@ public class MoviesFragment extends Fragment {
         recyclerView.setOnScrollListener(new EndlessRecyclerOnScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int current_page) {
-                Map<String,String> options = new HashMap<String, String>();
-                if(getFilters() != null)
-                    options.putAll(getFilters());
-                options.put("page", String.valueOf(current_page));
-                movieListService.getMovieList(options, new Callback<MovieListService.MovieListResponse>() {
+                getMovieList(getFilters(),String.valueOf(current_page) , new Callback<MovieListService.MovieListResponse>() {
                     @Override
                     public void success(MovieListService.MovieListResponse movieListResponse, Response response) {
-                        movieListAdapter.addMovies(movieListResponse.getData().getMovies());
+                        if(movieListResponse != null)
+                            movieListAdapter.addMovies(movieListResponse.getData().getMovies());
                     }
 
                     @Override
@@ -125,7 +131,17 @@ public class MoviesFragment extends Fragment {
         return view;
     }
 
+    protected void getMovieList(Map<String,String> filters, Callback<MovieListService.MovieListResponse> callback){
+        movieListService.getMovieList(getFilters(), callback);
+    }
 
+    protected void getMovieList(Map<String,String> filters, String page ,Callback<MovieListService.MovieListResponse> callback){
+        Map<String,String> options = new HashMap<String, String>();
+        if(getFilters() != null)
+            options.putAll(getFilters());
+        options.put("page", String.valueOf(page));
+        getMovieList(options, callback);
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

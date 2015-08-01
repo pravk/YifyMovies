@@ -9,6 +9,7 @@ import java.util.Map;
 
 import retrofit.Callback;
 import retrofit.http.GET;
+import retrofit.http.Query;
 import retrofit.http.QueryMap;
 
 /**
@@ -18,6 +19,9 @@ public interface MovieListService {
 
     @GET("/list_movies.json")
     public void getMovieList(@QueryMap Map<String, String> options, Callback<MovieListResponse> responseCallback);
+
+    @GET("/movie_suggestions.json")
+    public void getMovieSuggestionList(@Query("movie_id") String movieId, Callback<MovieListResponse> responseCallback);
 
     public static class Data {
 
@@ -31,6 +35,16 @@ public interface MovieListService {
         private Integer pageNumber;
         @Expose
         private List<Movie> movies = new ArrayList<Movie>();
+
+        @SerializedName("movie_suggestions")
+        @Expose
+        private List<Movie> movieSuggestions = new ArrayList<Movie>();
+
+
+        @SerializedName("movie_suggestions_count")
+        @Expose
+        private Integer movieSuggestionsCount;
+
 
         /**
          *
@@ -104,6 +118,21 @@ public interface MovieListService {
             this.movies = movies;
         }
 
+        public List<Movie> getMovieSuggestions() {
+            return movieSuggestions;
+        }
+
+        public void setMovieSuggestions(List<Movie> movieSuggestions) {
+            this.movieSuggestions = movieSuggestions;
+        }
+
+        public Integer getMovieSuggestionsCount() {
+            return movieSuggestionsCount;
+        }
+
+        public void setMovieSuggestionsCount(Integer movieSuggestionsCount) {
+            this.movieSuggestionsCount = movieSuggestionsCount;
+        }
     }
 
     public class Meta {
