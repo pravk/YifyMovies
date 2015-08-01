@@ -132,7 +132,7 @@ public class MoviesFragment extends Fragment {
     }
 
     protected void getMovieList(Map<String,String> filters, Callback<MovieListService.MovieListResponse> callback){
-        movieListService.getMovieList(getFilters(), callback);
+        movieListService.getMovieList(filters, callback);
     }
 
     protected void getMovieList(Map<String,String> filters, String page ,Callback<MovieListService.MovieListResponse> callback){
