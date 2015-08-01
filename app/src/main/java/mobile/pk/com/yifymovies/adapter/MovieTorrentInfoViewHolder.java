@@ -3,6 +3,7 @@ package mobile.pk.com.yifymovies.adapter;
 import android.view.View;
 import android.widget.TextView;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 
@@ -18,7 +19,8 @@ public class MovieTorrentInfoViewHolder extends MovieDetailViewHolder {
     TextView peers;
     TextView resolution;
     TextView size;
-
+    BootstrapButton magnetLink;
+    BootstrapButton torrentDownload;
 
     public MovieTorrentInfoViewHolder(View itemView) {
         super(itemView);
@@ -27,6 +29,8 @@ public class MovieTorrentInfoViewHolder extends MovieDetailViewHolder {
         peers = (TextView) itemView.findViewById(R.id.peers);
         resolution = (TextView) itemView.findViewById(R.id.resolution);
         size = (TextView) itemView.findViewById(R.id.size);
+        magnetLink = (BootstrapButton) itemView.findViewById(R.id.magnet_download);
+        torrentDownload = (BootstrapButton) itemView.findViewById(R.id.torrent_download);
     }
 
 }

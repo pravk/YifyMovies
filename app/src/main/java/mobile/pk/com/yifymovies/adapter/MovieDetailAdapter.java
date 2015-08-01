@@ -3,6 +3,7 @@ package mobile.pk.com.yifymovies.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.squareup.picasso.Picasso;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +25,7 @@ import mobile.pk.com.yifymovies.businessobjects.MovieFilter;
 import mobile.pk.com.yifymovies.service.MovieDetailService;
 import mobile.pk.com.yifymovies.ui.activity.BaseActivity;
 import mobile.pk.com.yifymovies.ui.activity.MovieSearchActivity;
+import mobile.pk.com.yifymovies.utils.TorrentUtils;
 
 /**
  * Created by hello on 8/1/2015.
@@ -137,7 +140,38 @@ public class MovieDetailAdapter extends RecyclerView.Adapter<MovieDetailViewHold
             viewHolder.quality.setText("Quality: " +torrent.getQuality());
             viewHolder.resolution.setText("Resolution: " +torrent.getResolution());
             viewHolder.seeds.setText("Seeds: " +torrent.getSeeds().toString());
-            viewHolder.size.setText("Size: " +torrent.getSize());
+            viewHolder.size.setText("Size: " + torrent.getSize());
+            viewHolder.magnetLink.setTag(torrent.getHash() + "," + getMovieDetailResponse().getData().getTitle());
+            viewHolder.magnetLink.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String torrent = (String) v.getTag();
+                    if (torrent != null) {
+                        String[] strings = torrent.split(",");
+                        try {
+                            String magnetLink = TorrentUtils.getTorrentLink(strings[0], strings[1]);
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(magnetLink));
+                            ((Activity) mContext).startActivity(i);
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+            viewHolder.torrentDownload.setTag(torrent.getUrl());
+            viewHolder.torrentDownload.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String torrent = (String) v.getTag();
+                    if (torrent != null) {
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(torrent));
+                            ((Activity) mContext).startActivity(i);
+
+                    }
+                }
+            });
         }
         else if(movieDetailViewHolder instanceof  MovieDirectorViewHolder)
         {
