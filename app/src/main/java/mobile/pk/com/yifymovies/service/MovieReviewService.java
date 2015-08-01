@@ -16,7 +16,7 @@ import retrofit.http.Query;
 public interface MovieReviewService {
 
     @GET("/movie_reviews.json")
-    public void getMovieDetails( @Query("movie_id") String movieId, Callback<MovieReviewResponse> responseCallback);
+    public void getMovieReviews( @Query("movie_id") String movieId, Callback<MovieReviewResponse> responseCallback);
 
     public class Data {
 

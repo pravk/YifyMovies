@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import mobile.pk.com.yifymovies.ui.fragments.GenresFragment;
 import mobile.pk.com.yifymovies.ui.fragments.MovieDetailFragment;
+import mobile.pk.com.yifymovies.ui.fragments.MovieReviewFragment;
 import mobile.pk.com.yifymovies.ui.fragments.MovieSuggestionFragment;
 import mobile.pk.com.yifymovies.ui.fragments.MoviesFragment;
 
@@ -14,7 +15,7 @@ import mobile.pk.com.yifymovies.ui.fragments.MoviesFragment;
  */
 public class MovieDetailFragmentAdapter extends FragmentPagerAdapter {
 
-    private String [] tabs = new String[] {"Details", "Suggestions"};
+    private String [] tabs = new String[] {"Details", "Reviews" ,"Suggestions"};
     private String movieId;
 
     public MovieDetailFragmentAdapter(FragmentManager fm, String movieId) {
@@ -28,6 +29,8 @@ public class MovieDetailFragmentAdapter extends FragmentPagerAdapter {
             case 0:
                 return MovieDetailFragment.newInstance(movieId);
             case 1:
+                return MovieReviewFragment.newInstance(movieId);
+            case 2:
                 return MovieSuggestionFragment.newInstance(movieId);
 
         }

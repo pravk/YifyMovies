@@ -30,6 +30,8 @@
     <string name="directors">Directors</string>
     <string name="actors">Actors</string>
     <string name="description">Description</string>
+    <string name="summary">Summary</string>
+    <string name="review_text">Review Text</string>
     <array name="genres_list">
         <item>Action</item>
         <item>Animation</item>
