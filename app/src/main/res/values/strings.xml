@@ -29,6 +29,7 @@
     <string name="size">Size</string>
     <string name="directors">Directors</string>
     <string name="actors">Actors</string>
+    <string name="description">Description</string>
     <array name="genres_list">
         <item>Action</item>
         <item>Animation</item>

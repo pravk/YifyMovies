@@ -103,24 +103,29 @@ public class MovieDetailAdapter extends RecyclerView.Adapter<MovieDetailViewHold
             movieViewHolder.mpaRating.setText("MPA : " + getMovieDetailResponse().getData().getMpaRating());
             movieViewHolder.runtime.setText("Runtime: " + getMovieDetailResponse().getData().getRuntime());
             movieViewHolder.quality.setText("");
+
+            /*movieViewHolder.description.setText(getMovieDetailResponse().getData().getDescriptionFull());
+            movieViewHolder.descriptionLayout.setVisibility(View.VISIBLE);*/
+
         }
         else if (movieDetailViewHolder instanceof  MovieScreenshotViewHolder)
         {
             MovieScreenshotViewHolder viewHolder1 = (MovieScreenshotViewHolder) movieDetailViewHolder;
+            viewHolder1.sliderShow.removeAllSliders();
             TextSliderView sliderView = new TextSliderView(mContext);
             sliderView.image(getMovieDetailResponse().getData().getImages().getLargeScreenshotImage1())
-                    .description("Screenshot 1")
+                    .description(getMovieDetailResponse().getData().getDescriptionIntro())
                     .setScaleType(BaseSliderView.ScaleType.CenterCrop);
 
             viewHolder1.sliderShow.addSlider(sliderView);
             sliderView = new TextSliderView(mContext);
             sliderView.image(getMovieDetailResponse().getData().getImages().getLargeScreenshotImage2())
-                    .description("Screenshot 2")
+                    .description(getMovieDetailResponse().getData().getDescriptionIntro())
                     .setScaleType(BaseSliderView.ScaleType.CenterCrop);
             viewHolder1.sliderShow.addSlider(sliderView);
             sliderView = new TextSliderView(mContext);
             sliderView.image(getMovieDetailResponse().getData().getImages().getLargeScreenshotImage3())
-                    .description("Screenshot 3")
+                    .description(getMovieDetailResponse().getData().getDescriptionIntro())
                     .setScaleType(BaseSliderView.ScaleType.CenterCrop);
             viewHolder1.sliderShow.addSlider(sliderView);
         }

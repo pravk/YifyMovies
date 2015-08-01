@@ -3,6 +3,7 @@ package mobile.pk.com.yifymovies.adapter;
 import mobile.pk.com.yifymovies.R;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +21,8 @@ public class MovieViewHolder extends MovieDetailViewHolder implements View.OnCli
     TextView mpaRating;
     TextView runtime;
     TextView quality;
+    TextView description;
+    ViewGroup descriptionLayout;
 
     public MovieViewHolder(View itemView) {
         super(itemView);
@@ -32,6 +35,8 @@ public class MovieViewHolder extends MovieDetailViewHolder implements View.OnCli
         mpaRating = (TextView) itemView.findViewById(R.id.mpa_rating);
         runtime = (TextView) itemView.findViewById(R.id.runtime);
         quality = (TextView) itemView.findViewById(R.id.quality);
+        description = (TextView) itemView.findViewById(R.id.description);
+        descriptionLayout = (ViewGroup) itemView.findViewById(R.id.description_layout);
     }
 
     @Override
