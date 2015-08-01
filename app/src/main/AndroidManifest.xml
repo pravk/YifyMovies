@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name="mobile.pk.com.yifymovies.ui.activity.MovieDetailActivity"/>
+        <activity android:name=".ui.activity.MovieSearchActivity"/>
     </application>
 
 </manifest>

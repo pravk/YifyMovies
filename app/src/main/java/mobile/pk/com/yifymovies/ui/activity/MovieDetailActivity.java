@@ -5,6 +5,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
@@ -21,6 +23,7 @@ import retrofit.client.Response;
 public class MovieDetailActivity extends BaseActivity {
 
     public static final String MOVIE_ID = "MOVIE_ID";
+    private static final String TAG = MovieDetailActivity.class.getSimpleName();
     MovieDetailAdapter adapter;
 
     @Override
@@ -30,6 +33,8 @@ public class MovieDetailActivity extends BaseActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar); // Attaching the layout to the toolbar object
         setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ButterKnife.inject(this);
 
@@ -63,9 +68,22 @@ public class MovieDetailActivity extends BaseActivity {
     }
 
     protected void bindData(MovieDetailService.MovieDetailResponse movieDetailResponse) {
-
+        setTitle(movieDetailResponse.getData().getTitle());
         adapter.setMovieDetailResponse(movieDetailResponse);
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
+        if (id == android.R.id.home) {
+            Log.d(TAG, "action bar clicked");
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
 }

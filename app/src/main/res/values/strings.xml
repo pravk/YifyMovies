@@ -29,4 +29,27 @@
     <string name="size">Size</string>
     <string name="directors">Directors</string>
     <string name="actors">Actors</string>
+    <array name="genres_list">
+        <item>Action</item>
+        <item>Animation</item>
+        <item>Comedy</item>
+        <item>Documentry</item>
+        <item>Family</item>
+        <item>Film-Noir</item>
+        <item>Horror</item>
+        <item>Musical</item>
+        <item>Romance</item>
+        <item>Sport</item>
+        <item>War</item>
+        <item>Adventure</item>
+        <item>Biography</item>
+        <item>Crime</item>
+        <item>Drama</item>
+        <item>Fantasy</item>
+        <item>History</item>
+        <item>Music</item>
+        <item>Sci-Fi</item>
+        <item>Thriller</item>
+        <item>Western</item>
+    </array>
 </resources>

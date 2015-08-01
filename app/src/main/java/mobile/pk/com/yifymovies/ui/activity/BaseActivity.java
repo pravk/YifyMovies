@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 public class BaseActivity extends AppCompatActivity {
 
     public static final int MOVIE_DETAIL_REQUEST = 1000;
+    public static final int MOVIE_SEARCH_REQUEST = 2000;
 
     protected Application getYifyApplication()
     {

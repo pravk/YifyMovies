@@ -40,6 +40,16 @@ public class MoviesFragment extends Fragment {
     MovieListService movieListService;
     MovieListAdapter movieListAdapter;
 
+    public Map<String, String> getFilters() {
+        return filters;
+    }
+
+    public void setFilters(Map<String, String> filters) {
+        this.filters = filters;
+    }
+
+    Map<String,String> filters;
+
     public static MoviesFragment newInstance() {
         MoviesFragment fragment = new MoviesFragment();
         Bundle args = new Bundle();
@@ -79,7 +89,7 @@ public class MoviesFragment extends Fragment {
             }
         });
 
-        movieListService.getMovieList(null, new Callback<MovieListService.MovieListResponse>() {
+        movieListService.getMovieList(getFilters(), new Callback<MovieListService.MovieListResponse>() {
             @Override
             public void success(MovieListService.MovieListResponse movieListResponse, Response response) {
                 movieListAdapter.addMovies(movieListResponse.getData().getMovies());

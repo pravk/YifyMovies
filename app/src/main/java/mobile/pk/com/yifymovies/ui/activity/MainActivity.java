@@ -1,9 +1,14 @@
 package mobile.pk.com.yifymovies.ui.activity;
 
+import mobile.pk.com.yifymovies.R;
+import mobile.pk.com.yifymovies.adapter.MainFragmentAdapter;
 import mobile.pk.com.yifymovies.ui.fragments.MoviesFragment;
+
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -20,6 +25,15 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(mobile.pk.com.yifymovies.R.id.toolbar); // Attaching the layout to the toolbar object
         setSupportActionBar(toolbar);
 
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
+
+        viewPager.setAdapter(new MainFragmentAdapter(getSupportFragmentManager()));
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
@@ -42,11 +56,11 @@ public class MainActivity extends AppCompatActivity {
         }
         if(id== mobile.pk.com.yifymovies.R.id.list_movies)
         {
-            FragmentManager fragmentManager = getSupportFragmentManager();
+           /* FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             MoviesFragment moviesFragment = MoviesFragment.newInstance();
             fragmentTransaction.add(mobile.pk.com.yifymovies.R.id.fragment_container, moviesFragment, "movieList");
-            fragmentTransaction.commit();
+            fragmentTransaction.commit();*/
         }
 
         return super.onOptionsItemSelected(item);
