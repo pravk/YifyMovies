@@ -1,5 +1,7 @@
 package mobile.pk.com.yifymovies.ui.activity;
 
+import android.app.SearchManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -34,29 +36,45 @@ public class MovieSearchActivity extends BaseActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        options = (ArrayList<MovieFilter>) getIntent().getSerializableExtra(OPTIONS);
-        if(options== null || options.size()==0)
-            finish();
-        else
-        {
-            HashMap<String,String> filters = new HashMap<>();
-            for(MovieFilter movieFilter: options)
-            {
-                filters.put(movieFilter.getName(), movieFilter.getValue());
+        if(!handleIntent(getIntent())) {
+
+            options = (ArrayList<MovieFilter>) getIntent().getSerializableExtra(OPTIONS);
+            if (options == null || options.size() == 0)
+                finish();
+            else {
+                HashMap<String, String> filters = new HashMap<>();
+                for (MovieFilter movieFilter : options) {
+                    filters.put(movieFilter.getName(), movieFilter.getValue());
+                }
+                MoviesFragment movieListFragment = MoviesFragment.newInstance(filters);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.container, movieListFragment, "movieListFragment").commit();
+                if (options.size() == 1) {
+                    setTitle(options.get(0).getDisplay());
+                } else {
+                    setTitle("Search Results");
+                }
             }
+        }
+
+    }
+
+    private boolean handleIntent(Intent intent) {
+
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+
+            HashMap<String,String> filters = new HashMap<>();
+            filters.put("query_term", query);
             MoviesFragment movieListFragment = MoviesFragment.newInstance(filters);
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(R.id.container, movieListFragment, "movieListFragment").commit();
-            if(options.size()==1)
-            {
-                setTitle(options.get(0).getDisplay());
-            }
-            else {
-                setTitle("Search Results");
-            }
+            setTitle("Results for: " + query);
+            return true;
         }
-
+        return false;
     }
 
 

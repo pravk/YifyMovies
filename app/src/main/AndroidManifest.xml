@@ -18,9 +18,19 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".ui.activity.MovieSearchActivity" />
+
         </activity>
         <activity android:name="mobile.pk.com.yifymovies.ui.activity.MovieDetailActivity"/>
-        <activity android:name=".ui.activity.MovieSearchActivity"/>
+        <activity android:name=".ui.activity.MovieSearchActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
         <activity android:name=".ui.fragments.MovieFilterActivity" android:label="@string/movie_filter"/>
     </application>
 
