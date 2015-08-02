@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import mobile.pk.com.yifymovies.ui.fragments.GenresFragment;
+import mobile.pk.com.yifymovies.ui.fragments.MovieUpcomingFragment;
 import mobile.pk.com.yifymovies.ui.fragments.MoviesFragment;
 
 /**
@@ -12,7 +13,7 @@ import mobile.pk.com.yifymovies.ui.fragments.MoviesFragment;
  */
 public class MainFragmentAdapter extends FragmentPagerAdapter {
 
-    private String [] tabs = new String[] {"Home", "Categories"};
+    private String [] tabs = new String[] {"Home", "Categories", "Upcoming"};
 
     public MainFragmentAdapter(FragmentManager fm) {
         super(fm);
@@ -25,6 +26,8 @@ public class MainFragmentAdapter extends FragmentPagerAdapter {
                 return new MoviesFragment();
             case 1:
                 return new GenresFragment();
+            case 2:
+                return new MovieUpcomingFragment();
 
         }
         return null;

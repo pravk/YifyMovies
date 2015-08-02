@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">YifyMovies</string>
+    <string name="app_name">Yify Movies</string>
 
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
@@ -33,6 +33,12 @@
     <string name="summary">Summary</string>
     <string name="review_text">Review Text</string>
     <string name="ok_button_label">OK</string>
+    <string name="quality_720p">720p</string>
+    <string name="quality_1080p">1080p</string>
+    <string name="quality_3d">3D</string>
+    <string name="min_rating">Minimum Rating</string>
+    <string name="quality_all">All</string>
+    <string name="movie_filter">Movie Filter</string>
     <array name="genres_list">
         <item>Action</item>
         <item>Animation</item>

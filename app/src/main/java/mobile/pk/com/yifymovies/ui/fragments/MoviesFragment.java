@@ -1,5 +1,6 @@
 package mobile.pk.com.yifymovies.ui.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -48,6 +49,8 @@ public class MoviesFragment extends Fragment {
     BootstrapButton btnSort;
 
     public Map<String, String> getFilters() {
+        if(filters == null)
+            filters = new HashMap<>();
         return filters;
     }
 
@@ -158,6 +161,17 @@ public class MoviesFragment extends Fragment {
                         .show();
             }
         });
+
+        btnFilter = (BootstrapButton) view.findViewById(R.id.btn_filter);
+        btnFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MovieFilterActivity.class);
+                intent.putExtra(MovieFilterActivity.FILTER_MAP, (HashMap<String,String>) getFilters());
+                startActivityForResult(intent, BaseActivity.MOVIE_LIST_FILTER_REQUEST);
+            }
+        });
+
         return view;
     }
 
@@ -207,19 +221,29 @@ public class MoviesFragment extends Fragment {
         options.put("page", String.valueOf(page));
         getMovieList(options, callback);
     }
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(String id);
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode,resultCode,data);
+        if (requestCode == BaseActivity.MOVIE_LIST_FILTER_REQUEST) {
+            if (resultCode == Activity.RESULT_OK) {
+                HashMap<String,String> result = (HashMap<String, String>) data.getSerializableExtra(MovieFilterActivity.FILTER_MAP);
+                String quality = result.get("quality");
+                if(quality == null)
+                    getFilters().remove("quality");
+                else
+                    getFilters().put("quality", quality);
+
+                String rating = result.get("minimum_rating");
+                if(rating == null)
+                    getFilters().remove("minimum_rating");
+                else
+                    getFilters().put("minimum_rating", rating);
+
+                resetData();
+            }
+        }
     }
 
 }

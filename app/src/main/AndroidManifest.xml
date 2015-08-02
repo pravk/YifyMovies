@@ -21,6 +21,7 @@
         </activity>
         <activity android:name="mobile.pk.com.yifymovies.ui.activity.MovieDetailActivity"/>
         <activity android:name=".ui.activity.MovieSearchActivity"/>
+        <activity android:name=".ui.fragments.MovieFilterActivity" android:label="@string/movie_filter"/>
     </application>
 
 </manifest>

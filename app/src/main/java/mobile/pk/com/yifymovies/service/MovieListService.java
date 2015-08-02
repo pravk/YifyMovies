@@ -23,6 +23,9 @@ public interface MovieListService {
     @GET("/movie_suggestions.json")
     public void getMovieSuggestionList(@Query("movie_id") String movieId, Callback<MovieListResponse> responseCallback);
 
+    @GET("/list_upcoming.json")
+    public void getMovieUpcomingList(Callback<MovieListResponse> responseCallback);
+
     public static class Data {
 
         @SerializedName("movie_count")
@@ -44,6 +47,15 @@ public interface MovieListService {
         @SerializedName("movie_suggestions_count")
         @Expose
         private Integer movieSuggestionsCount;
+
+        @SerializedName("upcoming_movies")
+        @Expose
+        private List<Movie> movieUpcoming = new ArrayList<Movie>();
+
+
+        @SerializedName("upcoming_movies_count")
+        @Expose
+        private Integer movieUpcomingCount;
 
 
         /**
@@ -132,6 +144,22 @@ public interface MovieListService {
 
         public void setMovieSuggestionsCount(Integer movieSuggestionsCount) {
             this.movieSuggestionsCount = movieSuggestionsCount;
+        }
+
+        public List<Movie> getMovieUpcoming() {
+            return movieUpcoming;
+        }
+
+        public void setMovieUpcoming(List<Movie> movieUpcoming) {
+            this.movieUpcoming = movieUpcoming;
+        }
+
+        public Integer getMovieUpcomingCount() {
+            return movieUpcomingCount;
+        }
+
+        public void setMovieUpcomingCount(Integer movieUpcomingCount) {
+            this.movieUpcomingCount = movieUpcomingCount;
         }
     }
 

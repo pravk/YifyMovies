@@ -54,11 +54,28 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         //Setting text view title
         movieViewHolder.title.setText(movie.getTitle());
         movieViewHolder.year.setText("Year: " + movie.getYear().toString());
-        movieViewHolder.genre.setText("Genres: " + TextUtils.join(", ", movie.getGenres()));
-        movieViewHolder.rating.setText("Rating: " + movie.getRating().toString());
-        movieViewHolder.language.setText("Language: " + movie.getLanguage());
-        movieViewHolder.mpaRating.setText("MPA : " + movie.getMpaRating());
-        movieViewHolder.runtime.setText("Runtime: " + movie.getRuntime());
+        if(movie.getGenres() != null && movie.getGenres().size()>0)
+            movieViewHolder.genre.setText("Genres: " + TextUtils.join(", ", movie.getGenres()));
+        else
+            movieViewHolder.genre.setText("");
+        if(movie.getRating() != null)
+            movieViewHolder.rating.setText("Rating: " + movie.getRating().toString());
+        else
+            movieViewHolder.rating.setText("");
+
+        if(movie.getLanguage() != null)
+            movieViewHolder.language.setText("Language: " + movie.getLanguage());
+        else
+            movieViewHolder.language.setText("");
+        if(movie.getMpaRating() != null)
+            movieViewHolder.mpaRating.setText("MPA : " + movie.getMpaRating());
+        else
+            movieViewHolder.mpaRating.setText("");
+        if(movie.getRuntime() != null)
+            movieViewHolder.runtime.setText("Runtime: " + movie.getRuntime());
+        else
+            movieViewHolder.runtime.setText("");
+
         StringBuilder quality = new StringBuilder();
         for (MovieListService.Torrent torrent : movie.getTorrents())
         {
@@ -66,7 +83,10 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
                 quality.append(", ");
             quality.append(torrent.getQuality());
         }
-        movieViewHolder.quality.setText("Quality: " + quality.toString());
+        if(!TextUtils.isEmpty( quality.toString()))
+            movieViewHolder.quality.setText("Quality: " + quality.toString());
+        else
+            movieViewHolder.quality.setText("");
     }
 
     @Override
