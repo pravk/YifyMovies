@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_list_movies"
+            android:icon="@drawable/ic_view_list"
+            android:title="List movies" android:checked="true" />
+        <item
+            android:id="@+id/nav_list_categories"
+
+            android:title="Categories/Genres" />
+        <item
+            android:id="@+id/nav_list_upcoming"
+            android:title="Upcoming Movies" />
+    </group>
+</menu>
