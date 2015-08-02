@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mobile.pk.com.yifymovies.ui.activity.MainActivity"
+    tools:context="mobile.pk.com.ytsmovies.ui.activity.MainActivity"
     android:orientation="vertical">
 
     <include
@@ -11,7 +11,7 @@
         layout="@layout/toolbar"
         ></include>
 
-    <!--<fragment android:name="mobile.pk.com.yifymovies.ui.fragments.MoviesFragment"
+    <!--<fragment android:name="mobile.pk.com.ytsmoviescom.ytsmovies.ui.fragments.MoviesFragment"
         android:id="@+id/movies_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />-->

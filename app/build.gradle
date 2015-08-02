@@ -5,10 +5,10 @@ android {
     buildToolsVersion "23.0.0 rc3"
 
     defaultConfig {
-        applicationId "mobile.pk.com.yifymovies"
+        applicationId "mobile.pk.com.ytsmovies"
         minSdkVersion 15
         targetSdkVersion 21
-        versionCode 2
+        versionCode 3
         versionName "1.0"
     }
     buildTypes {
