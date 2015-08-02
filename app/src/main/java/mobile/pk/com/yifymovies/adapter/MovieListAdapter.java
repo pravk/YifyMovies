@@ -91,4 +91,10 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     public String getMovieTitle(int index   ) {
         return movieList.get(index).getTitle();
     }
+
+    public void clearMovies() {
+        if(movieList != null)
+            movieList.clear();
+
+    }
 }

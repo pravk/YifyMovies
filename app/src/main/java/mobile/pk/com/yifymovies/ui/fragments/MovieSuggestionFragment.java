@@ -63,4 +63,9 @@ public class MovieSuggestionFragment extends MoviesFragment {
     protected void getMovieList(Map<String,String> filters, String page ,Callback<MovieListService.MovieListResponse> callback){
         callback.success(null, null);
     }
+
+    @Override
+    protected void resetFilterVisibility(ViewGroup filter) {
+        filter.setVisibility(View.GONE);
+    }
 }

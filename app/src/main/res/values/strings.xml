@@ -32,6 +32,7 @@
     <string name="description">Description</string>
     <string name="summary">Summary</string>
     <string name="review_text">Review Text</string>
+    <string name="ok_button_label">OK</string>
     <array name="genres_list">
         <item>Action</item>
         <item>Animation</item>
@@ -54,5 +55,15 @@
         <item>Sci-Fi</item>
         <item>Thriller</item>
         <item>Western</item>
+    </array>
+    <array name="sort_by">
+        <item>title</item>
+        <item>year</item>
+        <item>rating</item>
+        <item>peers</item>
+        <item>seeds</item>
+        <item>download_count</item>
+        <item>like_count</item>
+        <item>date_added</item>
     </array>
 </resources>

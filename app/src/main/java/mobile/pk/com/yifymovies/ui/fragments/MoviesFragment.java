@@ -1,8 +1,11 @@
 package mobile.pk.com.yifymovies.ui.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import mobile.pk.com.yifymovies.Application;
+import mobile.pk.com.yifymovies.R;
 import mobile.pk.com.yifymovies.adapter.MovieListAdapter;
 import mobile.pk.com.yifymovies.adapter.RVItemClickListener;
 import mobile.pk.com.yifymovies.service.MovieListService;
@@ -16,6 +19,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +44,8 @@ public class MoviesFragment extends Fragment {
 
     MovieListService movieListService;
     MovieListAdapter movieListAdapter;
+    BootstrapButton btnFilter;
+    BootstrapButton btnSort;
 
     public Map<String, String> getFilters() {
         return filters;
@@ -99,6 +106,83 @@ public class MoviesFragment extends Fragment {
 
         recyclerView.setAdapter(movieListAdapter);
 
+        resetData();
+        ViewGroup filter = (ViewGroup) view.findViewById(R.id.vg_filters);
+        resetFilterVisibility(filter);
+
+        recyclerView.setOnScrollListener(new EndlessRecyclerOnScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int current_page) {
+                getMovieList(getFilters(), String.valueOf(current_page), new Callback<MovieListService.MovieListResponse>() {
+                    @Override
+                    public void success(MovieListService.MovieListResponse movieListResponse, Response response) {
+                        if (movieListResponse != null)
+                            movieListAdapter.addMovies(movieListResponse.getData().getMovies());
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Toast.makeText(getActivity(), mobile.pk.com.yifymovies.R.string.failed_to_load_movies, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        btnSort = (BootstrapButton) view.findViewById(R.id.btn_sort);
+
+        btnSort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String [] items = getResources().getStringArray(R.array.sort_by);
+                String sortBy = getSortBy();
+                int selectedIndex = items.length-1;
+                for(int index = 0; index< items.length; index ++)
+                {
+                    String item = items[index];
+                    if(item.equals(sortBy))
+                    {
+                        selectedIndex = index;
+                        break;
+                    }
+                }
+                new AlertDialog.Builder(getActivity())
+                        .setSingleChoiceItems(R.array.sort_by, selectedIndex, null)
+                        .setPositiveButton(R.string.ok_button_label, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                dialog.dismiss();
+                                int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
+                                applySort(items[selectedPosition], 0);
+                                resetData();
+                            }
+                        })
+                        .show();
+            }
+        });
+        return view;
+    }
+
+    protected void resetFilterVisibility(ViewGroup filter) {
+        filter.setVisibility(View.VISIBLE);
+    }
+
+    protected String getSortBy()
+    {
+        if(filters != null)
+        {
+            return filters.get("sort_by");
+        }
+        return null;
+    }
+    protected void applySort(String field, int direction)
+    {
+        if(filters == null)
+            filters = new HashMap<>();
+
+        filters.put("sort_by", field);
+    }
+
+    private void resetData() {
+        movieListAdapter.clearMovies();
         getMovieList(getFilters(), new Callback<MovieListService.MovieListResponse>() {
             @Override
             public void success(MovieListService.MovieListResponse movieListResponse, Response response) {
@@ -110,25 +194,6 @@ public class MoviesFragment extends Fragment {
                 Toast.makeText(getActivity(), mobile.pk.com.yifymovies.R.string.failed_to_load_movies, Toast.LENGTH_SHORT).show();
             }
         });
-
-        recyclerView.setOnScrollListener(new EndlessRecyclerOnScrollListener(layoutManager) {
-            @Override
-            public void onLoadMore(int current_page) {
-                getMovieList(getFilters(),String.valueOf(current_page) , new Callback<MovieListService.MovieListResponse>() {
-                    @Override
-                    public void success(MovieListService.MovieListResponse movieListResponse, Response response) {
-                        if(movieListResponse != null)
-                            movieListAdapter.addMovies(movieListResponse.getData().getMovies());
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Toast.makeText(getActivity(), mobile.pk.com.yifymovies.R.string.failed_to_load_movies, Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
-        return view;
     }
 
     protected void getMovieList(Map<String,String> filters, Callback<MovieListService.MovieListResponse> callback){
