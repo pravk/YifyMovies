@@ -33,7 +33,7 @@ public class TorrentUtils {
 
     public static void addMagnetToClipboard(Context context, String magnetLink) {
         ClipboardManager clipboard = (ClipboardManager)  context.getSystemService(context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText("label", "Text to copy");
+        ClipData clip = ClipData.newPlainText("Magnet", magnetLink);
         clipboard.setPrimaryClip(clip);
     }
 }

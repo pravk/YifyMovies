@@ -13,6 +13,8 @@ import mobile.pk.com.ytsmovies.service.MovieListService;
 import mobile.pk.com.ytsmovies.ui.activity.BaseActivity;
 import mobile.pk.com.ytsmovies.ui.activity.MovieDetailActivity;
 import mobile.pk.com.ytsmovies.ui.utils.EndlessRecyclerOnScrollListener;
+
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,15 +32,6 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-/**
- * A fragment representing a list of Items.
- * <p>
- * Large screen devices (such as tablets) are supported by replacing the ListView
- * with a GridView.
- * <p>
- * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
- * interface.
- */
 public class MoviesFragment extends Fragment {
 
 
@@ -47,6 +40,7 @@ public class MoviesFragment extends Fragment {
     MovieListAdapter movieListAdapter;
     BootstrapButton btnFilter;
     BootstrapButton btnSort;
+    FloatingActionButton filterButton;
 
     public Map<String, String> getFilters() {
         if(filters == null)
@@ -110,10 +104,9 @@ public class MoviesFragment extends Fragment {
         recyclerView.setAdapter(movieListAdapter);
 
         resetData();
-        ViewGroup filter = (ViewGroup) view.findViewById(R.id.vg_filters);
-        resetFilterVisibility(filter);
+       // ViewGroup filter = (ViewGroup) view.findViewById(R.id.vg_filters);
 
-        recyclerView.setOnScrollListener(new EndlessRecyclerOnScrollListener(layoutManager) {
+        recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int current_page) {
                 getMovieList(getFilters(), String.valueOf(current_page), new Callback<MovieListService.MovieListResponse>() {
@@ -131,7 +124,19 @@ public class MoviesFragment extends Fragment {
             }
         });
 
-        btnSort = (BootstrapButton) view.findViewById(R.id.btn_sort);
+        filterButton = (FloatingActionButton) view.findViewById(R.id.fab_filter);
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MovieFilterActivity.class);
+                intent.putExtra(MovieFilterActivity.FILTER_MAP, (HashMap<String,String>) getFilters());
+                startActivityForResult(intent, BaseActivity.MOVIE_LIST_FILTER_REQUEST);
+            }
+        });
+        resetFilterVisibility(filterButton);
+
+
+        /*btnSort = (BootstrapButton) view.findViewById(R.id.btn_sort);
 
         btnSort.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,11 +176,11 @@ public class MoviesFragment extends Fragment {
                 startActivityForResult(intent, BaseActivity.MOVIE_LIST_FILTER_REQUEST);
             }
         });
-
+*/
         return view;
     }
 
-    protected void resetFilterVisibility(ViewGroup filter) {
+    protected void resetFilterVisibility(FloatingActionButton filter) {
         filter.setVisibility(View.VISIBLE);
     }
 
@@ -229,18 +234,8 @@ public class MoviesFragment extends Fragment {
         if (requestCode == BaseActivity.MOVIE_LIST_FILTER_REQUEST) {
             if (resultCode == Activity.RESULT_OK) {
                 HashMap<String,String> result = (HashMap<String, String>) data.getSerializableExtra(MovieFilterActivity.FILTER_MAP);
-                String quality = result.get("quality");
-                if(quality == null)
-                    getFilters().remove("quality");
-                else
-                    getFilters().put("quality", quality);
-
-                String rating = result.get("minimum_rating");
-                if(rating == null)
-                    getFilters().remove("minimum_rating");
-                else
-                    getFilters().put("minimum_rating", rating);
-
+                getFilters().clear();
+                getFilters().putAll(result);
                 resetData();
             }
         }

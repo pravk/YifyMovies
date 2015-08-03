@@ -1,6 +1,7 @@
 package mobile.pk.com.ytsmovies.ui.fragments;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -43,7 +44,7 @@ public class MovieUpcomingFragment extends MoviesFragment {
 
 
     @Override
-    protected void resetFilterVisibility(ViewGroup filter) {
+    protected void resetFilterVisibility(FloatingActionButton filter) {
         filter.setVisibility(View.GONE);
     }
 }

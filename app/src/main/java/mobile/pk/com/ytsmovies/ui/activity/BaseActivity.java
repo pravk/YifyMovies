@@ -40,8 +40,8 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //Show ad only 50% of time
-        if(Math.random()>0.5)
-            showAd();
+        /*if(Math.random()>0.5)
+            showAd();*/
     }
 
     protected void showAd()

@@ -4,9 +4,11 @@ package mobile.pk.com.ytsmovies.ui.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 
 import java.util.HashMap;
 
@@ -45,6 +47,10 @@ public class MovieFilterActivity extends BaseActivity {
     @InjectView(R.id.quality)
     RadioGroup quality;
 
+    @InjectView(R.id.sort_by)
+    Spinner sortBySpinner;
+    ArrayAdapter<String> sortByAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +66,8 @@ public class MovieFilterActivity extends BaseActivity {
             filter = new HashMap<>();
 
         ButterKnife.inject(this);
+        sortByAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.sort_by ));
+        sortBySpinner.setAdapter(sortByAdapter);
         initControls();
     }
 
@@ -92,6 +100,12 @@ public class MovieFilterActivity extends BaseActivity {
             rating.setProgress(Integer.valueOf(minimumRating)+1);
         }
 
+        String sortBy = filter.get("sort_by");
+        if(sortBy == null)
+        {
+            sortBy = "date_added";
+        }
+        sortBySpinner.setSelection(sortByAdapter.getPosition(sortBy));
     }
 
     @OnClick(R.id.btn_cancel)
@@ -122,6 +136,7 @@ public class MovieFilterActivity extends BaseActivity {
         }
 
         filter.put("minimum_rating", String.valueOf(rating.getProgress()-1));
+        filter.put("sort_by", sortBySpinner.getSelectedItem().toString());
 
         Intent data = new Intent();
         data.putExtra(FILTER_MAP, filter);

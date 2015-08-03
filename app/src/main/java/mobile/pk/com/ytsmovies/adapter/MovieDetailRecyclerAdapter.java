@@ -102,7 +102,7 @@ public class MovieDetailRecyclerAdapter extends RecyclerView.Adapter<MovieDetail
             movieViewHolder.title.setText(getMovieDetailResponse().getData().getTitle());
             movieViewHolder.year.setText("Year: " + getMovieDetailResponse().getData().getYear().toString());
             movieViewHolder.genre.setText("Genres: " + TextUtils.join(", ", getMovieDetailResponse().getData().getGenres()));
-            movieViewHolder.rating.setText("Rating: " + getMovieDetailResponse().getData().getRating().toString());
+            movieViewHolder.rating.setText(getMovieDetailResponse().getData().getRating().toString());
             movieViewHolder.language.setText("Language: " + getMovieDetailResponse().getData().getLanguage());
             movieViewHolder.mpaRating.setText("MPA : " + getMovieDetailResponse().getData().getMpaRating());
             movieViewHolder.runtime.setText("Runtime: " + getMovieDetailResponse().getData().getRuntime());

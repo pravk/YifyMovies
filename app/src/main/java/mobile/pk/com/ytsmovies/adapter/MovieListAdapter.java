@@ -59,9 +59,9 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         else
             movieViewHolder.genre.setText("");
         if(movie.getRating() != null)
-            movieViewHolder.rating.setText("Rating: " + movie.getRating().toString());
+            movieViewHolder.rating.setText(movie.getRating().toString());
         else
-            movieViewHolder.rating.setText("");
+            movieViewHolder.rating.setText("NA");
 
         if(movie.getLanguage() != null)
             movieViewHolder.language.setText("Language: " + movie.getLanguage());
