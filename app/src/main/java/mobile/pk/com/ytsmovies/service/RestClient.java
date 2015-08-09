@@ -13,6 +13,7 @@ public class RestClient {
     private MovieListService movieListService;
     private MovieDetailService movieDetailService;
     private MovieReviewService movieReviewService;
+    private MovieCommentService movieCommentService;
 
     public RestClient(Context context)
     {
@@ -24,6 +25,7 @@ public class RestClient {
         movieListService = restAdapter.create(MovieListService.class);
         movieDetailService = restAdapter.create(MovieDetailService.class);
         movieReviewService = restAdapter.create(MovieReviewService.class);
+        movieCommentService = restAdapter.create(MovieCommentService.class);
     }
 
     public MovieListService getMovieListService() {
@@ -36,5 +38,9 @@ public class RestClient {
 
     public MovieReviewService getMovieReviewService() {
         return movieReviewService;
+    }
+
+    public MovieCommentService getMovieCommentService() {
+        return movieCommentService;
     }
 }

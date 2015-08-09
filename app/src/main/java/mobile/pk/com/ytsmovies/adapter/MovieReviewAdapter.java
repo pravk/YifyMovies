@@ -33,10 +33,11 @@ public class MovieReviewAdapter extends RecyclerView.Adapter<MovieReviewViewHold
     @Override
     public void onBindViewHolder(MovieReviewViewHolder movieViewHolder, int i) {
         MovieReviewService.Review movieReview = getMovieReviewResponse().getData().getReviews().get(i);
-
-        movieViewHolder.text.setText(movieReview.getReviewText());
-        movieViewHolder.summary.setText(movieReview.getReviewSummary());
-        movieViewHolder.user.setText(movieReview.getUsername());
+        if(movieReview != null) {
+            movieViewHolder.text.setText(movieReview.getReviewText());
+            movieViewHolder.summary.setText(movieReview.getReviewSummary());
+            movieViewHolder.user.setText(movieReview.getUsername());
+        }
     }
 
     @Override

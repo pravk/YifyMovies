@@ -41,6 +41,8 @@
     <string name="movie_filter">Movie Filter</string>
     <string name="search_hint">Search by Movie Title, Actor Name, Director Name</string>
     <string name="sort_by">Sort by</string>
+    <string name="date_added">Date added</string>
+    <string name="likes">Likes</string>
     <array name="genres_list">
         <item>Action</item>
         <item>Animation</item>
